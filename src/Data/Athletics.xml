@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<links>
+  <link isRSS="true">
+    <url>http://www.texassports.com/headline-rss.xml</url>
+    <title>Top Sports News</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.texassports.com/sports/m-footbl/headline-rss.xml</url>
+    <title>Longhorn Football News</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.texassports.com/sports/m-baskbl/headline-rss.xml</url>
+    <title>Men's Basketball News</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.texassports.com/sports/w-baskbl/headline-rss.xml</url>
+    <title>Women's Basketball News</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.texassports.com/sports/m-swim/headline-rss.xml</url>
+    <title>Men's Swimming and Diving News</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.texassports.com/sports/w-swim/headline-rss.xml</url>
+    <title>Women's Swimming and Diving News</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.texassports.com/sports/m-basebl/headline-rss.xml</url>
+    <title>Men's Baseball News</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.texassports.com/sports/w-softbl/headline-rss.xml</url>
+    <title>Women's Softball News</title>
+  </link>
+</links>

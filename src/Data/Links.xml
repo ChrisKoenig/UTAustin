@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<links>
+  <link>
+    <url>http://www.facebook.com/UTAustinTX</url>
+    <title>on Facebook</title>
+  </link>
+  <link>
+    <url>http://twitter.com/utaustin</url>
+    <title>on Twitter</title>
+  </link>
+  <link isRSS="true">
+    <url>http://www.utexas.edu/know/feed</url>
+    <title>News</title>
+  </link>
+</links>

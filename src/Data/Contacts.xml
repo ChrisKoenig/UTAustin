@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<contacts>
+  <contact>
+    <name>Admissions</name>
+    <photoUrl>/Resources/Content/admissions.jpg</photoUrl>
+    <email>admissions@utexas.edu</email>
+    <phoneNumber>512.475.7399</phoneNumber>
+  </contact>
+  <contact>
+    <name>Financial Aid</name>
+    <photoUrl>/Resources/Content/money.jpg</photoUrl>
+    <email>finaid@utexas.edu</email>
+    <phoneNumber>512.475.6282</phoneNumber>
+  </contact>
+  <contact>
+    <name>Library</name>
+    <photoUrl>/Resources/Content/library.jpg</photoUrl>
+    <email></email>
+    <phoneNumber>512.495.4250</phoneNumber>
+  </contact>
+  <contact>
+    <name>Career Services</name>
+    <photoUrl>/Resources/Content/cfa.JPG</photoUrl>
+    <email></email>
+    <phoneNumber>512.475.8712</phoneNumber>
+  </contact>
+  <contact>
+    <name>Systems</name>
+    <photoUrl>/Resources/Content/technology.jpg</photoUrl>
+    <email>systems@its.utexas.edu</email>
+    <phoneNumber>512.471.6690</phoneNumber>
+  </contact>
+</contacts>

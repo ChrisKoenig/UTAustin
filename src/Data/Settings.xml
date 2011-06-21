@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <name>the university of texas</name>
+  <themeColor1>#c75b12</themeColor1>
+  <themeColor2>#ffffff</themeColor2>
+  <newsUrl>http://www.utexas.edu/know/feed</newsUrl>
+  <bingMapsKey>Aivsu4Fi-nZ2xA_JnFAgCLKgxw_ozw1UTFmX9tQQlwHiG6Gscwb5FA1HAbLLyFgx</bingMapsKey>
+  <locations>
+    <location title="Littlefield Fountain" latitude="30.2839" longitude="-97.7396" />
+    <location title="Darryl K, Royal Memorial Stadium" latitude="30.283180475235" longitude="-97.7323646843433" />
+    <location title="Harry Ransom Center" latitude="30.2843" longitude="-97.7412" />
+    <location title="LBJ Library and Museum" latitude="30.2857" longitude="-97.7292" />
+  </locations>
+</settings>
