@@ -1,25 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using System.Windows.Resources;
-using System.Linq;
-using System.Xml.Linq;
-using System.Net;
-using Microsoft.Phone.Net.NetworkInformation;
 using System.IO;
-using System.Windows.Threading;
-
+using System.Linq;
+using System.Net;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Resources;
+using System.Xml.Linq;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace UTAustin
 {
@@ -37,18 +26,24 @@ namespace UTAustin
             this.Forecasts = new ObservableCollection<Forecast>();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Properties
 
         public ObservableCollection<Link> NewsLinks { get; private set; }
+
         public ObservableCollection<Contact> Contacts { get; private set; }
+
         public ObservableCollection<Link> Links { get; private set; }
+
         public ObservableCollection<Link> AthleticLinks { get; private set; }
+
         public ObservableCollection<Link> FeedLinks { get; set; }
+
         public ObservableCollection<Forecast> Forecasts { get; private set; }
 
         private Link selectedLink;
+
         public Link SelectedLink
         {
             get { return selectedLink; }
@@ -61,6 +56,7 @@ namespace UTAustin
         }
 
         private Link selectedFeedItem;
+
         public Link SelectedFeedItem
         {
             get { return selectedFeedItem; }
@@ -73,6 +69,7 @@ namespace UTAustin
         }
 
         private Settings settings = new Settings();
+
         public Settings Settings
         {
             get
@@ -95,7 +92,7 @@ namespace UTAustin
             private set;
         }
 
-        #endregion
+        #endregion Properties
 
         #region Public Methods
 
@@ -106,7 +103,7 @@ namespace UTAustin
             loadNews();
 
             loadContacts();
-            
+
             loadLinks();
 
             loadWeather();
@@ -129,16 +126,16 @@ namespace UTAustin
 
             //parse items
             links = (from item in doc.Descendants(xName + "item")
-                                 select new Link
-                                 {
-                                     Title = item.Element(xName + "title").Value,
-                                     Url = item.Element(xName + "link").Value.ToString()
-                                 }).ToList<Link>();
+                     select new Link
+                     {
+                         Title = item.Element(xName + "title").Value,
+                         Url = item.Element(xName + "link").Value
+                     }).ToList<Link>();
 
             return links;
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -201,17 +198,16 @@ namespace UTAustin
                 //set to red if exception thrown while parsing color string
                 return new SolidColorBrush(Colors.Red);
             }
-
         }
 
-        #endregion
+        #endregion Settings
 
         #region News
 
         private void loadNews()
         {
             //check if network and client are available and newsurl exists
-            if (NetworkInterface.GetIsNetworkAvailable() && !string.IsNullOrEmpty(App.ViewModel.Settings.NewsUrl))
+            if (NetworkInterface.GetIsNetworkAvailable() && NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None && !string.IsNullOrEmpty(App.ViewModel.Settings.NewsUrl))
             {
                 string url = App.ViewModel.Settings.NewsUrl;
 
@@ -247,7 +243,6 @@ namespace UTAustin
             {
                 OnNewsUpdated(new NewsUpdatedEventArgs() { Message = "error" });
             }
-
         }
 
         private void loadNewsCompleted(string results)
@@ -269,7 +264,7 @@ namespace UTAustin
             }
         }
 
-        #endregion
+        #endregion News
 
         #region Contacts
 
@@ -279,18 +274,18 @@ namespace UTAustin
             XDocument contactsDoc = XDocument.Load(xml.Stream);
 
             List<Contact> cItems = (from item in contactsDoc.Descendants("contact")
-                                     select new Contact
-                                     {
-                                         Name = item.Element("name").Value.ToString(),
-                                         Email = item.Element("email").Value.ToString(),
-                                         PhotoUrl = item.Element("photoUrl").Value.ToString(),
-                                         PhoneNumber = item.Element("phoneNumber").Value.ToString()
-                                     }).ToList<Contact>();
+                                    select new Contact
+                                    {
+                                        Name = item.Element("name").Value,
+                                        Email = item.Element("email").Value,
+                                        PhotoUrl = item.Element("photoUrl").Value,
+                                        PhoneNumber = item.Element("phoneNumber").Value
+                                    }).ToList<Contact>();
 
             cItems.ForEach(x => Contacts.Add(x));
         }
 
-        #endregion
+        #endregion Contacts
 
         #region Links
 
@@ -309,22 +304,22 @@ namespace UTAustin
             List<Link> lItems = (from item in linksDoc.Descendants("link")
                                  select new Link
                                  {
-                                     Title = item.Element("title").Value.ToString(),
-                                     Url = item.Element("url").Value.ToString(),
+                                     Title = item.Element("title").Value,
+                                     Url = item.Element("url").Value,
                                      IsRss = item.Attribute("isRSS") != null
                                  }).ToList<Link>();
 
             return lItems;
         }
 
-        #endregion
+        #endregion Links
 
         #region Weather
-        
+
         private void loadWeather()
         {
             //check if network and client are available and newsurl exists
-            if (NetworkInterface.GetIsNetworkAvailable() && Settings.Locations.Count > 0)
+            if (NetworkInterface.GetIsNetworkAvailable() && NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None && Settings.Locations.Count > 0)
             {
                 string url = string.Format("http://forecast.weather.gov/MapClick.php?lat={0}&lon={1}&FcstType=dwml", Settings.Locations[0].Latitude, Settings.Locations[0].Longitude);
 
@@ -353,7 +348,6 @@ namespace UTAustin
             }
             catch (Exception ex)
             {
-
             }
         }
 
@@ -369,13 +363,13 @@ namespace UTAustin
                 List<Forecast> fItems = (from item in timeLayouts.Descendants("start-valid-time")
                                          select new Forecast
                                          {
-                                             Name = item.Attribute("period-name") != null ? item.Attribute("period-name").Value.ToString() : "",
-                                             Date = DateTime.Parse(item.Value.ToString())
+                                             Name = item.Attribute("period-name") != null ? item.Attribute("period-name").Value : "",
+                                             Date = DateTime.Parse(item.Value)
                                          }).ToList<Forecast>();
 
                 fItems.ForEach(x => Forecasts.Add(x));
 
-                //set min temperature               
+                //set min temperature
                 int tempCount = 0;
                 IEnumerable<XElement> currentNodes = (from a in weatherDoc.Root.Element("data").Element("parameters").Elements("temperature")
                                                       where a.Attribute("type").Value == "minimum"
@@ -394,7 +388,7 @@ namespace UTAustin
                     }
                 }
 
-                //set max temperature               
+                //set max temperature
                 currentNodes = (from a in weatherDoc.Root.Element("data").Element("parameters").Elements("temperature")
                                 where a.Attribute("type").Value == "maximum"
                                 select a).Descendants("value");
@@ -413,35 +407,40 @@ namespace UTAustin
                 }
 
                 //set weather condition
-                currentNodes = weatherDoc.Root.Element("data").Element("parameters").Element("weather").Descendants("weather-conditions");
+                currentNodes = weatherDoc.Root.Element("data")
+                                              .Element("parameters")
+                                              .Element("weather")
+                                              .Descendants("weather-conditions");
                 if (currentNodes != null)
                 {
                     for (int i = 0; i < currentNodes.Count(); i++)
                     {
-                        Forecasts[i].Conditions = currentNodes.ElementAt(i).Attribute("weather-summary").Value.ToString();
+                        Forecasts[i].Conditions = currentNodes.ElementAt(i).Attribute("weather-summary").Value;
                     }
                 }
 
                 //set image url
                 //(precipitation percentage is embedded in image)
-                currentNodes = weatherDoc.Root.Element("data").Element("parameters").Element("conditions-icon").Descendants("icon-link");
+                currentNodes = weatherDoc.Root.Element("data")
+                                              .Element("parameters")
+                                              .Element("conditions-icon")
+                                              .Descendants("icon-link");
                 if (currentNodes != null)
                 {
                     for (int i = 0; i < currentNodes.Count(); i++)
                     {
                         Forecasts[i].ImageUrl = currentNodes.ElementAt(i).Value;
                     }
-                } 
+                }
             }
             catch (Exception ex)
             {
-                
             }
         }
 
-        #endregion
+        #endregion Weather
 
-        #endregion
+        #endregion Private Methods
 
         #region Event
 
@@ -455,7 +454,7 @@ namespace UTAustin
                 NewsUpdated(this, e);
         }
 
-        #endregion
+        #endregion Event
     }
 
     public class NewsUpdatedEventArgs : EventArgs

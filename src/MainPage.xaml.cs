@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Net.NetworkInformation;
 using Microsoft.Phone.Tasks;
 
 namespace UTAustin
@@ -21,6 +15,10 @@ namespace UTAustin
         public MainPage()
         {
             InitializeComponent();
+            if (!NetworkInterface.GetIsNetworkAvailable() || NetworkInterface.NetworkInterfaceType == NetworkInterfaceType.None)
+            {
+                MessageBox.Show("There is a problem connecting to the internet. Application features will be limited.", "Network Error", MessageBoxButton.OK);
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -28,8 +26,9 @@ namespace UTAustin
             base.OnNavigatedTo(e);
 
             DataContext = App.ViewModel;
-            App.ViewModel.NewsUpdated += new MainViewModel.NewsUpdatedEventHandler(ViewModel_NewsUpdated);
+            App.ViewModel.NewsUpdated += ViewModel_NewsUpdated;
 
+            App.ViewModel.LoadData();
             resetListBoxes();
 
             setMapImage();

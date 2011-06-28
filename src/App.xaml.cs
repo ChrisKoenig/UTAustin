@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -36,6 +27,7 @@ namespace UTAustin
         }
 
         private NavigationMode mode = NavigationMode.New;
+
         public static NavigationMode CurrentNavigationMode
         {
             get { return (App.Current as App).mode; }
@@ -52,7 +44,7 @@ namespace UTAustin
         /// </summary>
         public App()
         {
-            // Global handler for uncaught exceptions. 
+            // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 
             // Show graphics profiling information while debugging.
@@ -64,7 +56,7 @@ namespace UTAustin
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
 
-                // Enable non-production analysis visualization mode, 
+                // Enable non-production analysis visualization mode,
                 // which shows areas of a page that are being GPU accelerated with a colored overlay.
                 //Application.Current.Host.Settings.EnableCacheVisualization = true;
             }
@@ -80,20 +72,20 @@ namespace UTAustin
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }            
+            //if (!App.ViewModel.IsDataLoaded)
+            //{
+            //    App.ViewModel.LoadData();
+            //}
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
+            //if (!App.ViewModel.IsDataLoaded)
+            //{
+            //    App.ViewModel.LoadData();
+            //}
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -153,7 +145,7 @@ namespace UTAustin
             phoneApplicationInitialized = true;
         }
 
-        void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        private void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             mode = e.NavigationMode;
         }
@@ -169,6 +161,6 @@ namespace UTAustin
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
         }
 
-        #endregion
+        #endregion Phone application initialization
     }
 }

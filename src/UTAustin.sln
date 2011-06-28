@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySchoolApp", "MySchoolApp.csproj", "{41F665E0-6F34-4B58-AD1B-A108100DE06A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTAustin", "UTAustin.csproj", "{41F665E0-6F34-4B58-AD1B-A108100DE06A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

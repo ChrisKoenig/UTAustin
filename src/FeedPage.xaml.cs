@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
+using Microsoft.Phone.Controls;
 using Microsoft.Phone.Net.NetworkInformation;
-using System.Xml.Linq;
 using Microsoft.Phone.Tasks;
 
 namespace UTAustin
@@ -23,7 +16,7 @@ namespace UTAustin
 
         WebClient feedClient;
 
-        #endregion
+        #endregion Private Variables
 
         public FeedPage()
         {
@@ -72,11 +65,11 @@ namespace UTAustin
             if (feedClient == null)
             {
                 feedClient = new WebClient();
-                feedClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(feedClient_DownloadStringCompleted);
+                feedClient.DownloadStringCompleted += feedClient_DownloadStringCompleted;
             }
 
             //check if network and client are available
-            if (NetworkInterface.GetIsNetworkAvailable() && !feedClient.IsBusy)
+            if (NetworkInterface.GetIsNetworkAvailable() && NetworkInterface.NetworkInterfaceType != NetworkInterfaceType.None && !feedClient.IsBusy)
             {
                 feedClient.DownloadStringAsync(new Uri(App.ViewModel.SelectedLink.Url, UriKind.Absolute));
             }
